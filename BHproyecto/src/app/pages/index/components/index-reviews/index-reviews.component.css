@@ -1,0 +1,90 @@
+.reviews {
+    padding: 4rem 2rem;
+    background-color: #f8fff9;
+    position: relative;
+  }
+
+  .background-rectangle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;  /* reducido de 90% a 80% */
+    height: 45%; /* reducido de 70% a 60% */
+    background-color: #82c7a5;
+    border-radius: 30px;
+    z-index: 1;
+}
+  
+  .reviews-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    
+  }
+  
+  .subtitle {
+    font-family: 'Poppins', sans-serif;
+    color: #82c7a5;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .title {
+    font-family: 'Source Serif Pro', serif;
+    color: #1a2b49;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    font-weight: bold;
+  }
+  
+  .reviews-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 1rem;
+  }
+  
+  .review-card {
+    background: #1a2b49;
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: left;
+    height: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease; /* Agrega una transición suave */
+    cursor: pointer;
+  }
+
+  .review-card:hover {
+    transform: scale(1.05); /* Aumenta el tamaño un 5% al pasar el cursor */
+  }
+  
+  .review-header {
+    margin-bottom: 1.5rem;
+  }
+  
+  .user-name {
+    color: #82c7a5;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .stars {
+    color: #ffd700;
+    font-size: 1rem;
+  }
+  
+  .review-text {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    line-height: 1.6;
+    font-size: 0.8rem;
+    text-align: justify;
+  }
+  

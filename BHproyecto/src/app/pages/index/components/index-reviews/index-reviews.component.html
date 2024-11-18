@@ -1,0 +1,18 @@
+<section class="reviews" id="reviews">
+    <div class="reviews-container">
+      <h3 class="subtitle">RESEÑAS DE USUARIOS</h3>
+      <h2 class="title">Qué piensan los usuarios sobre Smart Wallet</h2>
+      <div class="background-rectangle"></div>
+      <div class="reviews-grid">
+        <div class="review-card" *ngFor="let review of reviews">
+          <div class="review-header">
+            <h3 class="user-name">{{ review.nombre }}</h3>
+            <div class="stars">
+              <i class="fas fa-star" *ngFor="let star of [].constructor(review.puntuacion)"></i>
+            </div>
+          </div>
+          <p class="review-text">{{ review.comentario }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
