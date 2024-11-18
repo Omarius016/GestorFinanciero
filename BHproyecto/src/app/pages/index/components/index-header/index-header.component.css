@@ -1,0 +1,115 @@
+header {
+  background-color: #82c7a5;
+  width: 100%;
+  padding: 1rem 0;
+  position: fixed;
+  top: 0;
+  left: 0;          /* Asegura que empiece desde el borde izquierdo */
+  z-index: 1000;
+  margin: 0;        /* Elimina cualquier margen */
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;  /* Reduce el padding lateral */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;     /* Reduce el espacio entre logo e imagen */
+  margin-left: 0;  /* Elimina margen izquierdo */
+  padding-left: 0; /* Elimina padding izquierdo */
+}
+
+.logo-img {
+  height: 32px;
+  width: auto;
+  margin-left: 0;  /* Elimina margen izquierdo de la imagen */
+}
+  
+.logo-text {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+  
+.main-nav ul {
+    display: flex;
+    gap: 3rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+.main-nav ul li {
+    position: relative; 
+}
+
+.main-nav ul li a {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    color: white;
+    text-decoration: none;
+    display: inline-block; 
+    padding-bottom: 5px;
+
+}
+.main-nav a {
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: opacity 0.3s ease;
+}
+
+/* Efecto de línea al hover */
+.main-nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: white;
+    left: 0;
+    bottom: 0;
+    transition: width 0.3s ease;
+}
+  
+/* Cuando el mouse pasa por encima */
+.main-nav ul li a:hover::after {
+    width: 100%;
+}
+.main-nav a:hover {
+    opacity: 0.8;
+}
+  
+.get-started {
+    background-color: white;
+    color: #82c7a5 !important;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 500 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0.8rem !important;
+}
+
+.main-nav ul li a.get-started::after {
+    display: none;
+}
+
+.main-nav ul li a.get-started:hover::after {
+    width: 0;
+    display: none;
+}
+
+.get-started:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+}

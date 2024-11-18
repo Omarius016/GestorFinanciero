@@ -1,0 +1,115 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Lora:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Serif+Pro:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Crimson+Pro:ital@1&display=swap');
+
+.hero {
+  background-color: #82c7a5;
+  height: 20%;
+  position: relative;
+  padding-top: 100px;
+  overflow: hidden;
+}
+
+.content {
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+
+.text-content {
+  flex: 1;  /* Mantiene el texto ocupando su espacio */
+  max-width: 50%;
+}
+
+h1 {
+  font-family: 'Merriweather', serif;
+  font-size: 2.7rem;
+  margin-bottom: 1.5rem;
+}
+
+p {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin-bottom: 2rem;
+  text-align: justify;
+  margin-bottom: 6%;
+}
+
+.curve {
+  position: absolute;
+  bottom: -2px;
+  width: 100%;
+  line-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.curve svg {
+  display: block;
+  width: 100vw;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+
+/* Definimos la animación */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Aplicamos la animación a los elementos */
+.animate-left {
+  opacity: 0;
+  animation: slideInLeft 1s ease forwards;
+}
+
+/* Añadimos un delay para el párrafo */
+.animate-left.delay {
+  animation-delay: 0.3s;
+}
+
+/* Añadir la nueva animación */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.image-container {
+  position: absolute;  /* Cambiado a posición absoluta */
+  right: 10%;         /* Posición desde la derecha */
+  top: 20%;          /* Posición desde arriba - ajusta este valor según necesites */
+  width: 40%;        /* Ancho del contenedor */
+  z-index: 2;
+}
+
+.image-container img {
+  max-width: 70%;
+  height: auto;
+  margin-top: 1%;
+  margin-left: 45%;
+}
+
+/* Clase para la animación desde la derecha */
+.animate-right {
+  opacity: 0;
+  animation: slideInRight 1s ease forwards;
+}
