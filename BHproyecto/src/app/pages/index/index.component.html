@@ -1,6 +1,9 @@
 <div class="index-container">
-    <app-index-header></app-index-header>
+    <app-index-header (loadingStateChange)="handleLoadingChange($event)"></app-index-header>
     <app-index-hero></app-index-hero>
     <app-index-features></app-index-features>
     <app-index-reviews></app-index-reviews>
+    <app-index-footer></app-index-footer>
+    
+    <app-spinner [isLoading]="isLoading"></app-spinner>
   </div>
