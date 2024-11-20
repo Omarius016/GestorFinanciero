@@ -1,3 +1,5 @@
+
+
 .login-form {
     display: flex;
     flex-direction: column;
@@ -12,7 +14,7 @@
     font-size: 3rem;
     font-weight: bold;
     margin-bottom: 1.5rem;
-    font-family: 'Source Serif Pro', serif;
+    font-family: 'Poppins', sans-serif;
   }
   
   .form-field {
@@ -107,3 +109,29 @@ input.ng-touched.ng-invalid {
   .error-message span {
     display: block;
   }
+
+  /* Password */
+  .toggle-password {
+    position: absolute;
+    right: 12rem;
+    top: 22.12rem;  
+    background: none !important;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    color: #666;
+    width: auto !important;
+    height: auto;
+    z-index: 1; 
+  }
+  
+  .toggle-password:hover {
+    background: none !important;
+  }
+  
+  
+  .form-field input[type="password"],
+  .form-field input[type="text"] {
+    padding-right: 40px; 
+  }
+  
