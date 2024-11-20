@@ -8,13 +8,19 @@
           id="email"
           type="email"
           formControlName="email"
-          placeholder="Ingresa tu correo">
-          <span class="error-message" *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.touched">
-            El correo es requerido
-          </span>
-          <span class="error-message" *ngIf="loginForm.get('email')?.errors?.['email'] && loginForm.get('email')?.touched">
-            Ingresa un correo válido
-          </span>
+          placeholder="Ingresa tu correo"
+          [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+          <div class="error-message" *ngIf="loginForm.get('email')?.touched">
+            <span *ngIf="loginForm.get('email')?.errors?.['required']">
+              El correo es requerido
+            </span>
+            <span *ngIf="loginForm.get('email')?.errors?.['email']">
+              Ingresa un correo válido
+            </span>
+            <span *ngIf="loginForm.get('email')?.errors?.['invalidDomain']">
+                Dominio no válido
+            </span>
+          </div>
       </div>
   
       <div class="form-field">
@@ -23,10 +29,13 @@
           id="password"
           type="password"
           formControlName="password"
-          placeholder="Ingresa tu contraseña">
-          <span class="error-message" *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched">
-            La contraseña es requerida
-          </span>
+          placeholder="Ingresa tu contraseña"
+          [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          <div class="error-message" *ngIf="loginForm.get('password')?.touched">
+            <span *ngIf="loginForm.get('password')?.errors?.['required']">
+              La contraseña es requerida
+            </span>
+          </div>
       </div>
   
       <div class="forgot-password">
@@ -35,7 +44,9 @@
   
       <button 
         type="submit"
-        [disabled]="!loginForm.valid">
+        [disabled]="!isFormValid()"
+        [class.button-enabled]="isFormValid()"
+        [class.button-disabled]="!isFormValid()">
         Inicio de sesión
       </button>
   

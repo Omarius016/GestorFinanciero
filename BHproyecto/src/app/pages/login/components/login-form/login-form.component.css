@@ -67,8 +67,9 @@ input.ng-touched.ng-invalid {
   
   .forgot-password a {
     color: #2563EB;
-    font-size: 0.875rem;
+    font-size: 0.900rem;
     text-decoration: none;
+    font-family: 'Poppins', sans-serif;
   }
   
   button {
@@ -96,9 +97,13 @@ input.ng-touched.ng-invalid {
     margin-top: 1rem;
     text-align: center;
     font-size: 0.875rem;
+    font-family: 'Poppins', sans-serif;
   }
   
   .register a {
     color: #2563EB;
     text-decoration: none;
+  }
+  .error-message span {
+    display: block;
   }
