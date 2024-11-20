@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { LoginHeroComponent } from './components/login-hero/login-hero.component';
+import { AuthHeroComponent } from '../../shared/components/auth-hero/auth-hero.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [LoginHeroComponent],
+  imports: [
+    AuthHeroComponent
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

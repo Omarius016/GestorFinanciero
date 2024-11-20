@@ -88,6 +88,7 @@
   }
   
   .hero-link {
+    cursor: pointer;
     font-family: 'Poppins', sans-serif;
     color: white;
     text-decoration: underline;

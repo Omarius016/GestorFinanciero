@@ -23,7 +23,7 @@ export class IndexHeaderComponent {
       this.isLoading = false;
       this.loadingStateChange.emit(this.isLoading);
       this.router.navigate(['/login']);
-    }, 2000); // 2000 milisegundos = 2 segundos
+    }, 1000); 
   }
 
 }

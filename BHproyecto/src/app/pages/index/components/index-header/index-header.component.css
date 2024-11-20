@@ -90,6 +90,7 @@ header {
 }
   
 .get-started {
+    cursor: pointer;
     background-color: white;
     color: #82c7a5 !important;
     padding: 0.8rem 1.5rem;
