@@ -7,7 +7,7 @@
     margin-right: 10rem;
     width: 400px;
     padding: 20px;
-    margin-top: -32rem;
+    margin-top: -34rem;
   }
   
   h2 {
@@ -134,4 +134,25 @@ input.ng-touched.ng-invalid {
   .form-field input[type="text"] {
     padding-right: 40px; 
   }
+  /* Indicadores de requisitos */
+  .password-requirements {
+    margin-top: 5px;
+    font-size: 12px;
+  }
   
+  .password-requirements div {
+    margin: 3px 0;
+    color: #666;
+  }
+  
+  .password-requirements .valid {
+    color: #00A884;
+  }
+  
+  .password-requirements .invalid {
+    color: #666;
+  }
+  
+  .password-requirements i {
+    margin-right: 5px;
+  }

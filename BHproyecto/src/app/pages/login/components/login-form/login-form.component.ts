@@ -13,10 +13,23 @@ import { CommonModule } from '@angular/common';
 export class LoginFormComponent {
   loginForm: FormGroup;
   hidePassword = true;
+  hasMinLength = false;
+  hasUpperCase = false;
+  hasSpecialChar = false;
+
   constructor(private fb: FormBuilder) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required,Validators.email, this.emailValidator()]], // Aquí aplicamos el validador personalizado
-      password: ['', Validators.required]
+      email: ['', [Validators.required, Validators.email, this.emailValidator()]],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(8),
+        this.passwordValidator()
+      ]]
+    });
+
+    // Suscribirse a los cambios del password
+    this.loginForm.get('password')?.valueChanges.subscribe(password => {
+      this.checkPasswordRequirements(password);
     });
   }
   
@@ -51,10 +64,8 @@ export class LoginFormComponent {
         return { invalidDomain: true };
       }
       
-
       return null;
     };
-    
   }
   
   onSubmit() {
@@ -62,13 +73,13 @@ export class LoginFormComponent {
       console.log(this.loginForm.value);
     }
   }
-  // Agregar este nuevo método aquí
+
   getEyePosition(): string {
     const emailControl = this.loginForm.get('email');
     const hasEmailErrors = emailControl?.touched && emailControl?.errors;
     
     // Posición base
-    let topPosition = 354;
+    let topPosition = 323;
     
     // Si hay errores en el email, ajustamos la posición
     if (hasEmailErrors) {
@@ -81,5 +92,28 @@ export class LoginFormComponent {
     }
     
     return `${topPosition}px`;
+  }
+
+  checkPasswordRequirements(password: string) {
+    this.hasMinLength = password.length >= 8;
+    this.hasUpperCase = /[A-Z]/.test(password);
+    this.hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    // Forzar la revalidación del campo password
+    this.loginForm.get('password')?.updateValueAndValidity();
+  }
+
+  passwordValidator() {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const password = control.value;
+      
+      if (!password) return null;
+
+      const valid = this.hasMinLength && 
+                   this.hasUpperCase && 
+                   this.hasSpecialChar;
+
+      return valid ? null : { invalidPassword: true };
+    };
   }
 }
