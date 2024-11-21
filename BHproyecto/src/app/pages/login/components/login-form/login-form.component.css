@@ -96,6 +96,7 @@ input.ng-touched.ng-invalid {
   }
   
   .register {
+    cursor: pointer;
     margin-top: 1rem;
     text-align: center;
     font-size: 0.875rem;

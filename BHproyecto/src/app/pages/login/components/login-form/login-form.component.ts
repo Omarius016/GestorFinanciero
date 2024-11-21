@@ -2,22 +2,35 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,ValidationErrors, AbstractControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
+import { EventEmitter, Output } from '@angular/core';
+
 
 @Component({
   selector: 'app-login-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.css'
 })
 export class LoginFormComponent {
+  @Output() spinnerStateChange = new EventEmitter<boolean>();
+
+  navigateToRegister() {
+    this.spinnerStateChange.emit(true);
+    setTimeout(() => {
+      this.router.navigate(['/register']);
+    }, 1000);
+  }
+  
   loginForm: FormGroup;
   hidePassword = true;
   hasMinLength = false;
   hasUpperCase = false;
   hasSpecialChar = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email, this.emailValidator()]],
       password: ['', [

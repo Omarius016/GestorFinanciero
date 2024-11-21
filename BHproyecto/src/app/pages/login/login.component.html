@@ -1,2 +1,3 @@
 <app-auth-hero></app-auth-hero>
-<app-login-form></app-login-form>
+<app-login-form (spinnerStateChange)="handleLoadingChange($event)"></app-login-form>
+<app-spinner [isLoading]="isLoading"></app-spinner>
