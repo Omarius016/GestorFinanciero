@@ -62,4 +62,24 @@ export class LoginFormComponent {
       console.log(this.loginForm.value);
     }
   }
+  // Agregar este nuevo método aquí
+  getEyePosition(): string {
+    const emailControl = this.loginForm.get('email');
+    const hasEmailErrors = emailControl?.touched && emailControl?.errors;
+    
+    // Posición base
+    let topPosition = 354;
+    
+    // Si hay errores en el email, ajustamos la posición
+    if (hasEmailErrors) {
+      if (emailControl?.errors?.['required'] || emailControl?.errors?.['email']) {
+        topPosition += 24; 
+      }
+      if (emailControl?.errors?.['invalidDomain']) {
+        topPosition += 20; 
+      }
+    }
+    
+    return `${topPosition}px`;
+  }
 }

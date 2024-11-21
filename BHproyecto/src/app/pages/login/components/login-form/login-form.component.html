@@ -38,7 +38,7 @@
               La contraseña es requerida
             </span>
           </div>
-          <button type="button" class="toggle-password" (click)="hidePassword = !hidePassword">
+          <button type="button" class="toggle-password" [style.top]="getEyePosition()" (click)="hidePassword = !hidePassword">
             <i class="fas fa-eye{{ hidePassword ? '-slash' : ''}}"></i>
           </button>
       </div>
