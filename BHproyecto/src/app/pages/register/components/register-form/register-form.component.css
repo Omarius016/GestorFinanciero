@@ -1,0 +1,161 @@
+
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: 10rem;
+    width: 400px;
+    padding: 20px;
+    margin-top: -38rem;
+  }
+  
+  h2 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .form-field {
+    margin-bottom: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    position: relative;
+  }
+  
+  label {
+    display: block;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    color: #374151;
+  }
+  
+  input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #D1D5DB;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+  }
+  
+ /* Estado inicial y error */
+input.ng-touched.ng-invalid {
+    border-color: #ff4444;
+    background-color: #fff0f0;
+  }
+  
+  /* Estado válido */
+  input.ng-valid {
+    border-color: #4CAF50;
+    background-color: #f0fff0;
+  }
+  
+  /* Mensaje de error */
+  .error-message {
+    color: #ff4444;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    display: none;
+  }
+  
+  input.ng-touched.ng-invalid + .error-message {
+    display: block;
+  }
+  
+  .forgot-password {
+    text-align: left;
+    margin: 0.5rem 0 1rem;
+  }
+  
+  .forgot-password a {
+    color: #2563EB;
+    font-size: 0.900rem;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #10B981;
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  button:hover {
+    background-color: #059669;
+  }
+  
+  button:disabled {
+    background-color: #9CA3AF;
+    cursor: not-allowed;
+  }
+  
+  .register {
+    cursor: pointer;
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.875rem;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .register a {
+    color: #2563EB;
+    text-decoration: none;
+  }
+  .error-message span {
+    display: block;
+  }
+
+  /* Password */
+  .toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 77%;
+    transform: translateY(-50%);
+    background: none !important;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    color: #666;
+    width: auto !important;
+    height: auto;
+    z-index: 1; 
+  }
+  
+  .toggle-password:hover {
+    background: none !important;
+  }
+  
+  
+  .form-field input[type="password"],
+  .form-field input[type="text"] {
+    padding-right: 40px; 
+  }
+  /* Indicadores de requisitos */
+  .password-requirements {
+    margin-top: 5px;
+    font-size: 12px;
+  }
+  
+  .password-requirements div {
+    margin: 3px 0;
+    color: #666;
+  }
+  
+  .password-requirements .valid {
+    color: #00A884;
+  }
+  
+  .password-requirements .invalid {
+    color: #666;
+  }
+  
+  .password-requirements i {
+    margin-right: 5px;
+  }
