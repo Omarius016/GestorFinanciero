@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { EventEmitter, Output } from '@angular/core';
+import { AuthService } from '../../../../core/services/auth.service'
 
 
 @Component({
@@ -15,6 +16,7 @@ import { EventEmitter, Output } from '@angular/core';
   styleUrl: './login-form.component.css'
 })
 export class LoginFormComponent {
+  
   @Output() spinnerStateChange = new EventEmitter<boolean>();
 
   navigateToRegister() {
@@ -30,7 +32,7 @@ export class LoginFormComponent {
   hasUpperCase = false;
   hasSpecialChar = false;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email, this.emailValidator()]],
       password: ['', [
@@ -83,10 +85,27 @@ export class LoginFormComponent {
   
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
+      this.spinnerStateChange.emit(true);
+      
+      const { email, password } = this.loginForm.value;
+      
+      this.authService.login(email, password).subscribe({
+        next: (response) => {
+          console.log('Login exitoso:', response);
+          // Guardar el token
+          localStorage.setItem('token', response.access_token);
+          this.spinnerStateChange.emit(false);
+          // Redirigir al usuario
+          this.router.navigate(['/dashboard']); // o la ruta que desees
+        },
+        error: (error) => {
+          console.error('Error en login:', error);
+          this.spinnerStateChange.emit(false);
+          // Aquí puedes mostrar un mensaje de error al usuario
+        }
+      });
     }
   }
-
   getEyePosition(): string {
     const emailControl = this.loginForm.get('email');
     const hasEmailErrors = emailControl?.touched && emailControl?.errors;

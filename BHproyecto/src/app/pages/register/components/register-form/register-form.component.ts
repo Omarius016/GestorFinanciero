@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { EventEmitter, Output } from '@angular/core';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-register-form',
@@ -23,7 +24,7 @@ export class RegisterFormComponent {
   hasSpecialChar = false;
   hideConfirmPassword = true;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email, this.emailValidator()]],
       password: ['', [
@@ -79,7 +80,21 @@ export class RegisterFormComponent {
   
   onSubmit() {
     if (this.registerForm.valid) {
-      console.log(this.registerForm.value);
+      this.spinnerStateChange.emit(true);
+      
+      const { email, password } = this.registerForm.value;
+      
+      this.authService.register(email, password).subscribe({
+        next: (response) => {
+          console.log('Registro exitoso:', response);
+          this.spinnerStateChange.emit(false);
+          this.router.navigate(['/login']);
+        },
+        error: (error) => {
+          console.error('Error en el registro:', error);
+          this.spinnerStateChange.emit(false);
+        }
+      });
     }
   }
 

@@ -5,8 +5,16 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import jwt, JWTError
 from passlib.context import CryptContext
 from datetime import datetime, timedelta, timezone
-
+from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI() #Definir la app
+# Configurar CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:4200"],  # URL de tu frontend Angular
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 SECRET_KEY = "test"
 ALGORITHM = "HS256" #Algoritmo a usar, de los mas comunes
@@ -16,7 +24,7 @@ ACCESS_TOKEN_DURATION = 1440  # en minutos osea 1 dia
 oauth2 = OAuth2PasswordBearer(tokenUrl="login")
 
 class User(BaseModel):
-    username: str
+    #username: str
     email: str
     disabled: bool
 
@@ -49,12 +57,12 @@ async def get_current_user(token: str = Depends(oauth2)):
         #Decodificar el token a partir de la llave secreta y el algoritmo
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         #Extrae el nombre de usuario del payload del tokensito
-        username: str = payload.get("sub")
+        email: str = payload.get("sub")
         #Si el username no esta en el token da error de credenciales
-        if username is None:
+        if email is None:
             raise credentials_exception
         #Aqui obtiene info del usuario desde la BD
-        user = get_user_and_password(username)
+        user = get_user_and_password(email)
         #Si el usuario no existe en la BD manda a error
         if user is None:
             raise credentials_exception
@@ -65,19 +73,19 @@ async def get_current_user(token: str = Depends(oauth2)):
 #Ruta para registrar nuevos usuarios
 @app.post("/register")
 async def register_user_endpoint(
-        username: str = Form(...),
+        #username: str = Form(...),
         email: str = Form(...),
         password: str = Form(...)):
     
     #Verificar si el usuario ya existe
-    if user_exists_in_db(username):
+    if user_exists_in_db(email):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="User already exists")
     
     #Encriptar el password antes de guardarlo
     hashed_password = crypt.hash(password)
 
     # Intentar registrar el usuario
-    success = register_user(username, email, hashed_password)
+    success = register_user(email, hashed_password)
     if success:
         return {"message": "User registered successfully"}
     else:
@@ -86,6 +94,7 @@ async def register_user_endpoint(
 @app.post("/login")
 async def login(form: OAuth2PasswordRequestForm = Depends()):
     # Get user and encrypted password from database
+    
     user_data = get_user_and_password(form.username)
 
     if not user_data:
@@ -122,7 +131,7 @@ async def change_password(
     new_password_hash = crypt.hash(new_password)
 
     # Update password in database
-    if not update_password(user["username"], new_password_hash):
+    if not update_password(user["email"], new_password_hash):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Could not update password"
@@ -135,7 +144,7 @@ async def delete_account(user: dict = Depends(get_current_user)):
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
 
-    if delete_user(user["username"]):
+    if delete_user(user["email"]):
         return {"message": "User account successfully deleted"}
     else:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Error deleting account")

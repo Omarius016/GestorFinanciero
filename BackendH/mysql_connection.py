@@ -12,7 +12,7 @@ def get_connection():
 
 
 #Registrar usuario
-def register_user(username, email, password):
+def register_user(email, password):
     connection = get_connection()
     cursor = connection.cursor()
 
@@ -26,10 +26,10 @@ def register_user(username, email, password):
     # Insertar nuevo usuario
     sql = """
         INSERT INTO users_db 
-        (username, email, password, created_at, updated_at) 
-        VALUES (%s, %s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+        (email, password, created_at, updated_at) 
+        VALUES (%s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
     """
-    values = (username, email, password)
+    values = (email, password)
 
     cursor.execute(sql, values)
     connection.commit()
@@ -39,12 +39,12 @@ def register_user(username, email, password):
     return True
 
 #Checar si el usuario existe en la base de datos
-def user_exists_in_db(username: str) -> bool:
+def user_exists_in_db(email: str) -> bool:
     connection = get_connection()
     cursor = connection.cursor()
 
     # Checar si el usuario existe por nombre de usuario
-    cursor.execute("SELECT * FROM users_db WHERE username = %s", (username,))
+    cursor.execute("SELECT * FROM users_db WHERE email = %s", (email,))
     exists = cursor.fetchone() is not None
 
     cursor.close()
@@ -52,11 +52,11 @@ def user_exists_in_db(username: str) -> bool:
     return exists
 
 #Obtener usuario y contraseña
-def get_user_and_password(username: str):
+def get_user_and_password(email: str):
     connection = get_connection()
     cursor = connection.cursor()
 
-    cursor.execute("SELECT username, password FROM users_db WHERE username = %s", (username,))
+    cursor.execute("SELECT email, password FROM users_db WHERE email = %s", (email,))
     result = cursor.fetchone()
 
     cursor.close()
@@ -68,12 +68,12 @@ def get_user_and_password(username: str):
         return None
 
  
-def update_password(username: str, new_password: str) -> bool:
+def update_password(email: str, new_password: str) -> bool:
     connection = get_connection()
     cursor = connection.cursor()
     
     # Actualizar la contraseña en la base de datos
-    cursor.execute("UPDATE users_db SET password = %s WHERE username = %s", (new_password, username))
+    cursor.execute("UPDATE users_db SET password = %s WHERE email = %s", (new_password, email))
     connection.commit()
     
     cursor.close()
@@ -82,14 +82,14 @@ def update_password(username: str, new_password: str) -> bool:
     return cursor.rowcount > 0
 
 #Eliminar usuario
-def delete_user(username: str) -> bool:
+def delete_user(email: str) -> bool:
     connection = get_connection()  
     cursor = connection.cursor()
 
     try:
         # Eliminar usuario de la base de datos
-        query = "DELETE FROM users_db WHERE username = %s"
-        cursor.execute(query, (username,))
+        query = "DELETE FROM users_db WHERE email = %s"
+        cursor.execute(query, (email,))
         connection.commit()  # Confirmar eliminación
 
         # Checar si se eliminó alguna fila
@@ -114,7 +114,7 @@ if __name__ == "__main__":
     connection.close()
 
     # Llamar a la función register_user para probar
-    success = register_user("new_user", "user@example.com", "password123")
+    success = register_user("user@example.com", "password123")
     if success:
         print("User successfully registered")
     else:
